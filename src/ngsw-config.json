@@ -5,7 +5,7 @@
     {
       "name": "api",
       "urls": [
-        "https://contacts-api.vatsaev.com/**"
+        "https://prashiln79.github.io/angular-App/**"
       ],
       "cacheConfig": {
         "strategy": "freshness",
