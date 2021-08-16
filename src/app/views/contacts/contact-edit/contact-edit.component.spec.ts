@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ContactEditComponent } from './contact-edit.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {StoreModule} from '@ngrx/store';
@@ -20,7 +20,7 @@ describe('ContactEditComponent', () => {
   let fixture: ComponentFixture<ContactEditComponent>;
   let contactsFacade: ContactsStoreFacade;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ContactEditComponent, ContactFormComponent ],
       imports: [

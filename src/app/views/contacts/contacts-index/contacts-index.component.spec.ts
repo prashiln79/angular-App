@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import * as fromContacts from '@app/contacts-store';
 import { ContactsIndexComponent } from './contacts-index.component';
 import {StoreModule} from '@ngrx/store';
@@ -17,7 +17,7 @@ describe('ContactsIndexComponent', () => {
   let contactsFacade: ContactsStoreFacade;
   let router: Router;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
 
       declarations: [ ContactsIndexComponent, ContactListComponent ],

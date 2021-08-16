@@ -10,8 +10,8 @@
       "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
-          "styleext": "sass",
-          "changeDetection": "OnPush"
+          "changeDetection": "OnPush",
+          "style": "sass"
         }
       },
       "architect": {
@@ -34,7 +34,14 @@
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "aot": false,
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -47,7 +54,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -66,7 +72,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -81,18 +86,15 @@
                   "with": "src/environments/environment.local.ts"
                 }
               ],
-              "optimization": false,
               "outputHashing": "all",
-              "sourceMap": true,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": false,
               "serviceWorker": false
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",

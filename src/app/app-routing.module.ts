@@ -9,12 +9,12 @@ const routes: Routes = [
     redirectTo: '/contacts'
   },
   {
-    path: 'contacts', loadChildren: 'src/app/views/contacts/contacts.module#ContactsModule',
+    path: 'contacts', loadChildren: () => import('src/app/views/contacts/contacts.module').then(m => m.ContactsModule),
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
