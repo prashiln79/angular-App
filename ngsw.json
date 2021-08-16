@@ -1,0 +1,108 @@
+{
+  "configVersion": 1,
+  "timestamp": 1629111668580,
+  "index": "https://prashiln79.github.io/expenses/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://prashiln79.github.io/expenses/985.def9e596b9d38da646fd.js",
+        "https://prashiln79.github.io/expenses/favicon.ico",
+        "https://prashiln79.github.io/expenses/index.html",
+        "https://prashiln79.github.io/expenses/main.84946bf51863a96f19e4.js",
+        "https://prashiln79.github.io/expenses/polyfills-es5.f2de8873b691e16a1618.js",
+        "https://prashiln79.github.io/expenses/polyfills.d78d1cf850ea81609a27.js",
+        "https://prashiln79.github.io/expenses/runtime.f7f2402c55edfc0670b2.js",
+        "https://prashiln79.github.io/expenses/styles.f5db853305285a09fcf6.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "https://prashiln79.github.io/expenses/assets/icons/icon-128x128.png",
+        "https://prashiln79.github.io/expenses/assets/icons/icon-144x144.png",
+        "https://prashiln79.github.io/expenses/assets/icons/icon-152x152.png",
+        "https://prashiln79.github.io/expenses/assets/icons/icon-192x192.png",
+        "https://prashiln79.github.io/expenses/assets/icons/icon-384x384.png",
+        "https://prashiln79.github.io/expenses/assets/icons/icon-512x512.png",
+        "https://prashiln79.github.io/expenses/assets/icons/icon-72x72.png",
+        "https://prashiln79.github.io/expenses/assets/icons/icon-96x96.png",
+        "https://prashiln79.github.io/expenses/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
+        "https://prashiln79.github.io/expenses/fontawesome-webfont.20fd1704ea223900efa9.woff2",
+        "https://prashiln79.github.io/expenses/fontawesome-webfont.8b43027f47b20503057d.eot",
+        "https://prashiln79.github.io/expenses/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
+        "https://prashiln79.github.io/expenses/fontawesome-webfont.f691f37e57f04c152e23.woff"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api",
+      "patterns": [
+        "https:\\/\\/contacts-api\\.vatsaev\\.com\\/.*"
+      ],
+      "strategy": "freshness",
+      "maxSize": 100,
+      "maxAge": 259200000,
+      "timeoutMs": 5000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "https://prashiln79.github.io/expenses/985.def9e596b9d38da646fd.js": "9a3bc2d23077d92dccf9d3252730af2b144b743d",
+    "https://prashiln79.github.io/expenses/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "https://prashiln79.github.io/expenses/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "https://prashiln79.github.io/expenses/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "https://prashiln79.github.io/expenses/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "https://prashiln79.github.io/expenses/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "https://prashiln79.github.io/expenses/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "https://prashiln79.github.io/expenses/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "https://prashiln79.github.io/expenses/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "https://prashiln79.github.io/expenses/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
+    "https://prashiln79.github.io/expenses/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf": "13b1eab65a983c7a73bc7997c479d66943f7c6cb",
+    "https://prashiln79.github.io/expenses/fontawesome-webfont.20fd1704ea223900efa9.woff2": "d6f48cba7d076fb6f2fd6ba993a75b9dc1ecbf0c",
+    "https://prashiln79.github.io/expenses/fontawesome-webfont.8b43027f47b20503057d.eot": "d980c2ce873dc43af460d4d572d441304499f400",
+    "https://prashiln79.github.io/expenses/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg": "98a8aa5cf7d62c2eff5f07ede8d844b874ef06ed",
+    "https://prashiln79.github.io/expenses/fontawesome-webfont.f691f37e57f04c152e23.woff": "28b782240b3e76db824e12c02754a9731a167527",
+    "https://prashiln79.github.io/expenses/index.html": "87180572afabde1c8cc78b005415fd639393ae25",
+    "https://prashiln79.github.io/expenses/main.84946bf51863a96f19e4.js": "5dbbea08a46052d3f0165ca1051afa2fd6daef65",
+    "https://prashiln79.github.io/expenses/polyfills-es5.f2de8873b691e16a1618.js": "0af9fce11d026eb6a71e5fac2e29a3c5275ad4ad",
+    "https://prashiln79.github.io/expenses/polyfills.d78d1cf850ea81609a27.js": "b5590b57c04c7b9802bf90bd0a521b3516f986f1",
+    "https://prashiln79.github.io/expenses/runtime.f7f2402c55edfc0670b2.js": "2e0a5b38674ae05f40a3f18b11163b3a9f9d2a93",
+    "https://prashiln79.github.io/expenses/styles.f5db853305285a09fcf6.css": "c77cc7296bf0a7ac8c25693a5aabbfffac7a8528"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
