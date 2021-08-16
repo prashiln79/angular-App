@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1629120809606,
+  "timestamp": 1629122356367,
   "index": "https://prashiln79.github.io/angular-App/https://prashiln79.github.io/angular-App/index.html",
   "assetGroups": [
     {
@@ -14,7 +14,7 @@
         "https://prashiln79.github.io/angular-App/985.dc9914242b1b97c548a7.js",
         "https://prashiln79.github.io/angular-App/favicon.ico",
         "https://prashiln79.github.io/angular-App/index.html",
-        "https://prashiln79.github.io/angular-App/main.77eb66e7a4c10c864341.js",
+        "https://prashiln79.github.io/angular-App/main.b588c5e3034ba45f3406.js",
         "https://prashiln79.github.io/angular-App/polyfills-es5.8d9b5ee3d4502f3c7e44.js",
         "https://prashiln79.github.io/angular-App/polyfills.29d6d25ab559899ccf95.js",
         "https://prashiln79.github.io/angular-App/runtime.0b2ae2fdb23da95d84ce.js",
@@ -80,8 +80,8 @@
     "https://prashiln79.github.io/angular-App/fontawesome-webfont.8b43027f47b20503057d.eot": "d980c2ce873dc43af460d4d572d441304499f400",
     "https://prashiln79.github.io/angular-App/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg": "98a8aa5cf7d62c2eff5f07ede8d844b874ef06ed",
     "https://prashiln79.github.io/angular-App/fontawesome-webfont.f691f37e57f04c152e23.woff": "28b782240b3e76db824e12c02754a9731a167527",
-    "https://prashiln79.github.io/angular-App/index.html": "b6456c2d2642ba3670fd297878e5c73ff0c19c0a",
-    "https://prashiln79.github.io/angular-App/main.77eb66e7a4c10c864341.js": "7bb099ed83210ef775258a5ff98f229d2335b9cd",
+    "https://prashiln79.github.io/angular-App/index.html": "36f08e805709a1f89420b4784a20828a479b2164",
+    "https://prashiln79.github.io/angular-App/main.b588c5e3034ba45f3406.js": "720d660f49ec51bebda81701472fe525ee0bbfc5",
     "https://prashiln79.github.io/angular-App/polyfills-es5.8d9b5ee3d4502f3c7e44.js": "0af9fce11d026eb6a71e5fac2e29a3c5275ad4ad",
     "https://prashiln79.github.io/angular-App/polyfills.29d6d25ab559899ccf95.js": "b5590b57c04c7b9802bf90bd0a521b3516f986f1",
     "https://prashiln79.github.io/angular-App/runtime.0b2ae2fdb23da95d84ce.js": "3769037a7538b61b7d494a92bbc6c449505a436f",
