@@ -10,7 +10,7 @@ import { ContactsEffects } from '@app/contacts-store/contacts-effects';
 @Component({
   selector: 'app-contact-edit',
   templateUrl: './contact-edit.component.html',
-  styleUrls: ['./contact-edit.component.sass'],
+  styleUrls: ['./contact-edit.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactEditComponent implements OnInit, OnDestroy {

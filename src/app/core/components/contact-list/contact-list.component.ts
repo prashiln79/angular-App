@@ -4,7 +4,7 @@ import { Contact } from '@app/core/models';
 @Component({
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',
-  styleUrls: ['./contact-list.component.sass'],
+  styleUrls: ['./contact-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactListComponent implements OnInit {

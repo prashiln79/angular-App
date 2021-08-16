@@ -11,7 +11,7 @@
       "schematics": {
         "@schematics/angular:component": {
           "changeDetection": "OnPush",
-          "style": "sass"
+          "style": "scss"
         }
       },
       "architect": {
@@ -30,7 +30,7 @@
               "src/manifest.json"
             ],
             "styles": [
-              "src/styles.sass",
+              "src/styles.scss",
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
@@ -127,7 +127,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.sass"
+              "src/styles.scss"
             ],
             "scripts": [],
             "assets": [

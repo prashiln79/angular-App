@@ -7,7 +7,7 @@ import { ContactsStoreFacade } from '@app/contacts-store/contacts.store-facade';
 @Component({
   selector: 'app-contacts-index',
   templateUrl: './contacts-index.component.html',
-  styleUrls: ['./contacts-index.component.sass'],
+  styleUrls: ['./contacts-index.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactsIndexComponent implements OnInit {

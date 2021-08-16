@@ -6,7 +6,7 @@ import { ContactsStoreFacade} from '@app/contacts-store/contacts.store-facade';
 @Component({
   selector: 'app-contact-new',
   templateUrl: './contact-new.component.html',
-  styleUrls: ['./contact-new.component.sass'],
+  styleUrls: ['./contact-new.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactNewComponent implements OnInit, OnDestroy {

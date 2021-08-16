@@ -9,7 +9,7 @@ import { ContactsEffects } from '@app/contacts-store/contacts-effects';
 @Component({
   selector: 'app-contact-details',
   templateUrl: './contact-details.component.html',
-  styleUrls: ['./contact-details.component.sass'],
+  styleUrls: ['./contact-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactDetailsComponent implements OnInit, OnDestroy {
