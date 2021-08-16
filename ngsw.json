@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1629115838842,
+  "timestamp": 1629117097400,
   "index": "https://prashiln79.github.io/angular-App/index.html",
   "assetGroups": [
     {
@@ -51,7 +51,7 @@
     {
       "name": "api",
       "patterns": [
-        "https:\\/\\/prashiln79\\.github\\.io\\/angular-App\\/.*"
+        "https:\\/\\/contacts-api\\.vatsaev\\.com\\/.*"
       ],
       "strategy": "freshness",
       "maxSize": 100,
