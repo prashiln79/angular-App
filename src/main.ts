@@ -10,6 +10,6 @@ if (environment.production) {
 
 platformBrowserDynamic().bootstrapModule(AppModule).then(() => {
   if ('serviceWorker' in navigator && environment.production) {
-    navigator.serviceWorker.register('https://prashiln79.github.io/angular-App/ngsw-worker.js');
+    navigator.serviceWorker.register('./ngsw-worker.js');
   }
 }).catch(err => console.log(err));
