@@ -35,9 +35,9 @@ export const INIT_STATE: State = contactsAdapter.getInitialState({
 
 export const reducer = createReducer<State>(
   INIT_STATE,
-  on(loadAllSuccess, (state, {contacts}) =>
-    contactsAdapter.addAll(contacts, state)
-  ),
+  // on(loadAllSuccess, (state, {contacts}) =>
+  //   contactsAdapter.addAll(contacts, state)
+  // ),
   on(loadSuccess, (state, {contact}) =>
     contactsAdapter.upsertOne(contact, state)
   ),
