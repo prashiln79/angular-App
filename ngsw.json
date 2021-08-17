@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1629144567060,
+  "timestamp": 1629170289425,
   "index": "https://prashiln79.github.io/angular-App/index.html",
   "assetGroups": [
     {
@@ -14,7 +14,7 @@
         "https://prashiln79.github.io/angular-App/388.e002c0c7eec2cb82892b.js",
         "https://prashiln79.github.io/angular-App/favicon.ico",
         "https://prashiln79.github.io/angular-App/index.html",
-        "https://prashiln79.github.io/angular-App/main.b19566d4600e1ec3f618.js",
+        "https://prashiln79.github.io/angular-App/main.e2266428a8f2daafe2b2.js",
         "https://prashiln79.github.io/angular-App/polyfills-es5.4b8e48c5a52346e6a370.js",
         "https://prashiln79.github.io/angular-App/polyfills.5f9468cc7e3df132fe77.js",
         "https://prashiln79.github.io/angular-App/runtime.a9506e70b183d9a986ac.js",
@@ -80,8 +80,8 @@
     "https://prashiln79.github.io/angular-App/fontawesome-webfont.8b43027f47b20503057d.eot": "d980c2ce873dc43af460d4d572d441304499f400",
     "https://prashiln79.github.io/angular-App/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg": "98a8aa5cf7d62c2eff5f07ede8d844b874ef06ed",
     "https://prashiln79.github.io/angular-App/fontawesome-webfont.f691f37e57f04c152e23.woff": "28b782240b3e76db824e12c02754a9731a167527",
-    "https://prashiln79.github.io/angular-App/index.html": "9899cb6859633aa4dbe8f345a8196d1c734ed492",
-    "https://prashiln79.github.io/angular-App/main.b19566d4600e1ec3f618.js": "2fecff85f74a1627d014812d05c3a3827f3ad977",
+    "https://prashiln79.github.io/angular-App/index.html": "45ddb14b4b00b6681315d43f445a2994a526b71f",
+    "https://prashiln79.github.io/angular-App/main.e2266428a8f2daafe2b2.js": "434c9805a1b5eb97ed3b84c0996a9ee7a00699ac",
     "https://prashiln79.github.io/angular-App/polyfills-es5.4b8e48c5a52346e6a370.js": "c8bc7addfe639d3e45208043ac12c4b86e5122b6",
     "https://prashiln79.github.io/angular-App/polyfills.5f9468cc7e3df132fe77.js": "c8f5558689e1675ee8d99a9ba6d0fbeeda656414",
     "https://prashiln79.github.io/angular-App/runtime.a9506e70b183d9a986ac.js": "b2ca4c34cc2ef12dd599b927d64f21b8f8951e87",
