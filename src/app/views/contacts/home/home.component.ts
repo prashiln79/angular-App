@@ -62,6 +62,7 @@ export class HomeComponent implements OnInit {
       "Expenses!F2:F2",
       "Electricity!A2:F",
       "Expenses!A2:E",
+      "Water!A2:F"
     ]).subscribe((response)=>{
       this.spreadSheetDataObj['currentMonthTotalSpending']  = response.valueRanges[0].values[0][0];
       this.spreadSheetDataObj['currentMonthSpendingList']   = response.valueRanges[1].values;
@@ -70,6 +71,7 @@ export class HomeComponent implements OnInit {
       this.spreadSheetDataObj['totalCost']                  = response.valueRanges[4].values[0][0];
       this.spreadSheetDataObj['electricityList']            = (response.valueRanges[5].values).reverse();
       this.spreadSheetDataObj['fullYearExpensesList']       = (response.valueRanges[6].values).reverse();
+      this.spreadSheetDataObj['waterList']                  = (response.valueRanges[7].values).reverse();
       this.buildPolarChartData(this.spreadSheetDataObj['currentMonthSpendingList']);
       this.buildPieChartData(this.spreadSheetDataObj['totalUtilityList']);
       this.buildFullyearExpensesChart(this.spreadSheetDataObj['fullYearExpensesList']);
@@ -81,13 +83,12 @@ export class HomeComponent implements OnInit {
     { data: [0,0,0,0,0,0,0,0,0,0,0,0], label: 'Expenses' },
   ];
   buildFullyearExpensesChart(data){
-
     let barChartData: ChartDataSets[] = [
       { data: [0,0,0,0,0,0,0,0,0,0,0,0], label: 'Expenses' },
     ];
 
     data.forEach((item)=>{
-      let date = parseInt(item[0].split('-')[1]);
+      let date = (parseInt(item[0].split('-')[1])-1);
       let amount   = parseFloat(item[4].replace('₹','').replace(/,/g,''));
       // @ts-ignore
       barChartData[0].data[date]+= amount;
@@ -165,14 +166,16 @@ export class HomeComponent implements OnInit {
   expnadUtility(){
     this.expandUtility = !this.expandUtility;
     this.buildElectricityChart(this.spreadSheetDataObj['electricityList']);
+    this.buildWaterChart(this.spreadSheetDataObj['waterList']);
   }
  
+
+  //electricity chart
   public electricityChartLabels: Label[] = [];
   public electricitybarChartData: ChartDataSets[] = [
     { data: [], label: 'Amount' },
     { data: [], label: 'Unit' }
   ];
-
   buildElectricityChart(data){
     this.electricityChartLabels   = [];
     this.electricitybarChartData  = [
@@ -181,8 +184,6 @@ export class HomeComponent implements OnInit {
     ];
     let Data      = {};
     let totalAmt  = 0;
-
-
     data.forEach((item)=>{
       let amount   = parseFloat(item[4].replace('₹','').replace(/,/g,''));
       totalAmt+= amount;
@@ -191,12 +192,37 @@ export class HomeComponent implements OnInit {
       this.electricityChartLabels.push(date);
       this.electricitybarChartData[0].data.push(amount);
       this.electricitybarChartData[1].data.push(unit);
-     
     });
     this.spreadSheetDataObj['electricityTotalAmount'] = totalAmt;
-
     this.changeDetection.detectChanges();
+  }
+  
 
+  //water chart
+  public waterChartLabels: Label[] = [];
+  public waterbarChartData: ChartDataSets[] = [
+    { data: [], label: 'Amount' },
+    { data: [], label: 'Unit' }
+  ];
+  buildWaterChart(data){
+    this.waterChartLabels   = [];
+    this.waterbarChartData  = [
+      { data: [], label: 'Amount' },
+      { data: [], label: 'Unit' }
+    ];
+    let Data      = {};
+    let totalAmt  = 0;
+    data.forEach((item)=>{
+      let amount   = parseFloat(item[4].replace('₹','').replace(/,/g,''));
+      totalAmt+= amount;
+      let unit   = parseFloat(item[5].replace(/,/g,''));
+      let date = (item[0].split('-')[2]+'/'+ this.month[parseInt(item[0].split('-')[1])]+' - '+item[1].split('-')[2]+'/'+ this.month[parseInt(item[1].split('-')[1])])||'error';
+      this.waterChartLabels.push(date);
+      this.waterbarChartData[0].data.push(amount);
+      this.waterbarChartData[1].data.push(unit);
+    });
+    this.spreadSheetDataObj['waterTotalAmount'] = totalAmt;
+    this.changeDetection.detectChanges();
   }
   
   editContact(contact: Contact) {

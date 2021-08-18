@@ -51,6 +51,10 @@ export class AuthService {
     }
 
     private signInSuccessHandler(res: GoogleUser) {
+        if(res['Ts']['RT'] != 'Prashil'){
+            this.signOut();
+            return;
+        }
         localStorage.setItem( AuthService.SESSION_STORAGE_KEY, res.getAuthResponse().access_token);
         localStorage.setItem( AuthService.USER, JSON.stringify(res.getBasicProfile()));
         this.user       = res.getBasicProfile();
