@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {ContactsComponent} from './contacts.component';
 import {ContactNewComponent} from './contact-new/contact-new.component';
-import {ContactsIndexComponent} from './contacts-index/contacts-index.component';
 import {ContactDetailsComponent} from './contact-details/contact-details.component';
 import {ContactEditComponent} from './contact-edit/contact-edit.component';
 import {TitleResolver} from '@app/core/resolvers/title.resolver';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
@@ -14,8 +14,8 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: ContactsIndexComponent,
-        data: {title: 'Contacts index'},
+        component: HomeComponent,
+        data: {title: 'Home'},
         resolve: {title: TitleResolver}
       },
       {

@@ -1,0 +1,87 @@
+
+
+<div class="card text-center">
+  <div class="card-body">
+    <h6 class="card-subtitle mb-2 text-muted">Year Spending:</h6>
+    <h5 class="card-title">{{spreadSheetDataObj['currentMonthTotalSpending']}}</h5>
+    <div>
+      <div>
+        <div style="display: block">
+          <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="card text-center" *ngIf="spreadSheetDataObj['currentMonthTotalSpending']">
+    <div class="card-body">
+      <h6 class="card-subtitle mb-2 text-muted">This month you spent:</h6>
+      <h5 class="card-title">{{spreadSheetDataObj['currentMonthTotalSpending']}}</h5>
+      <div>
+        <div>
+          <div style="display: block">
+            <canvas baseChart
+              [data]="polarAreaChartData"
+              [labels]="polarAreaChartLabels"
+              [legend]="polarAreaLegend"
+              [chartType]="polarAreaChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div class="card text-center">
+  <div class="card-body">
+    <h6 class="card-subtitle mb-2 text-muted">Utility Spending:</h6>
+    <h5 class="card-title">{{spreadSheetDataObj['currentMonthTotalSpending']}}</h5>
+    <div>
+      <div class="chart" >
+        <canvas baseChart
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"
+          [options]="pieChartOptions"
+          [plugins]="pieChartPlugins"
+          [colors]="pieChartColors"
+          [legend]="pieChartLegend">
+        </canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+
+<!-- 
+<div>
+  <div>
+    <div style="display: block">
+      <canvas baseChart
+        [data]="doughnutChartData"
+        [labels]="doughnutChartLabels"
+        [chartType]="doughnutChartType">
+      </canvas>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+
+
+
+

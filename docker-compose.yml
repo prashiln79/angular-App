@@ -22,7 +22,7 @@ services:
 
 
   api:
-    image: avatsaev/angular-contacts-api:dev
+    image: avatsaev/Expenses-api:dev
     restart: always
     ports:
     - 3000:3000

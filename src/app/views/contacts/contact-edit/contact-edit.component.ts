@@ -31,12 +31,12 @@ export class ContactEditComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     // listen to update$ side effect, after updating redirect to the contact details view
-    this.redirectSub = this.contactsEffects.update$.pipe(
-      // make sure that the currently edited contact has been update and not some other contact (emitted by sockets)
-      filter( action => action.contact.id === +this.activatedRoute.snapshot.params.contactId)
-    ).subscribe(
-      action => this.router.navigate(['/contacts', action.contact.id])
-    );
+    // this.redirectSub = this.contactsEffects.update$.pipe(
+    //   // make sure that the currently edited contact has been update and not some other contact (emitted by sockets)
+    //   filter( action => action.contact.id === +this.activatedRoute.snapshot.params.contactId)
+    // ).subscribe(
+    //   action => this.router.navigate(['/contacts', action.contact.id])
+    // );
 
     this.activatedRoute.params.subscribe(params => {
       // update our id from the backend in case it was modified by another client

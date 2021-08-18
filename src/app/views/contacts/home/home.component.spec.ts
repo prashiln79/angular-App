@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import * as fromContacts from '@app/contacts-store';
-import { ContactsIndexComponent } from './contacts-index.component';
+import { HomeComponent } from './home.component';
 import {StoreModule} from '@ngrx/store';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ContactListComponent} from '@app/core/components/contact-list/contact-list.component';
@@ -12,15 +12,15 @@ import {ROOT_REDUCERS} from '@app/root-store';
 
 
 describe('ContactsIndexComponent', () => {
-  let component: ContactsIndexComponent;
-  let fixture: ComponentFixture<ContactsIndexComponent>;
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
   let contactsFacade: ContactsStoreFacade;
   let router: Router;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
 
-      declarations: [ ContactsIndexComponent, ContactListComponent ],
+      declarations: [ HomeComponent, ContactListComponent ],
       imports: [
         StoreModule.forRoot(ROOT_REDUCERS),
         StoreModule.forFeature('contacts', fromContacts.reducers),

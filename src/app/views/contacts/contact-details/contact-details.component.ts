@@ -32,11 +32,11 @@ export class ContactDetailsComponent implements OnInit, OnDestroy {
 
     // If the destroy effect fires, we check if the current id is the one being viewed, and redirect to index
 
-    this.redirectSub = this.contactsEffects.destroy$.pipe(
-      filter( action =>
-        action.id === +this.activatedRoute.snapshot.params.contactId
-      )
-    ).subscribe(_ => this.router.navigate(['/contacts']));
+    // this.redirectSub = this.contactsEffects.destroy$.pipe(
+    //   filter( action =>
+    //     action.id === +this.activatedRoute.snapshot.params.contactId
+    //   )
+    // ).subscribe(_ => this.router.navigate(['/contacts']));
 
     this.activatedRoute.params.subscribe(params => {
       // update our id from the backend in case it was modified by another client

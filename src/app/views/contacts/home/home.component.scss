@@ -1,0 +1,25 @@
+.card-title{
+    margin: .5em 0;
+    font-size: 200%;
+    color: #119fd6;
+}
+
+.card-subtitle , .card-text{
+    text-align: initial;
+    font-size: .875rem;
+    font-weight: 400;
+    letter-spacing: .04em;
+    line-height: 1.25rem;
+    color: #7a7a7a;
+}
+
+.card{
+    margin-bottom: 30px;
+}
+
+
+.example-button-container{
+    right: 30px;
+    bottom: 30px;
+    position: absolute;
+}

@@ -23,3 +23,31 @@
 .nav-item.active{
   background: rgba(255, 255, 255, 0.15);
 }
+
+nav{
+  padding: 10px;
+}
+
+.navBar{
+  display: flex;
+}
+
+#profile{
+  display: flex !important;
+  padding: 2px;
+  justify-content: space-between;
+  color: white;
+  margin-right: 10px;
+}
+
+.dropdown-menu{
+  min-width: 0 !important;
+}
+
+.dropdown{
+  img{
+    width: 36px;
+    aspect-ratio: auto 36 / 36;
+    height: 36px;
+  }
+}

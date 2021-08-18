@@ -3,7 +3,7 @@ import {EntityState, createEntityAdapter} from '@ngrx/entity';
 import {createReducer, on} from '@ngrx/store';
 import {
   createSuccess,
-  loadAllSuccess,
+  loadSpreadSheetSuccess,
   loadSuccess, removeSuccess,
   updateSuccess
 } from '@app/contacts-store/contacts-actions';

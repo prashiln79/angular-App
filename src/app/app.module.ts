@@ -12,6 +12,24 @@ import {SocketIoModule} from 'ngx-socket-io';
 import {ServiceWorkerModule } from '@angular/service-worker';
 import {environment} from '@app/env';
 import {ROOT_REDUCERS} from '@app/root-store';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  GoogleApiModule, 
+  GoogleApiService, 
+  GoogleAuthService, 
+  NgGapiClientConfig, 
+  NG_GAPI_CONFIG,
+  GoogleApiConfig
+} from "ng-gapi";
+
+let gapiClientConfig: NgGapiClientConfig = {
+  client_id: "825310645531-8j0bnfk6ge5vb8q1j8mnq0sudop9ikod.apps.googleusercontent.com",
+  discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+  scope: [
+      "https://www.googleapis.com/auth/spreadsheets",
+      "https://www.googleapis.com/auth/drive.metadata.readonly"
+  ].join(" ")
+};
 
 @NgModule({
   declarations: [
@@ -27,9 +45,15 @@ import {ROOT_REDUCERS} from '@app/root-store';
     StoreModule.forRoot(ROOT_REDUCERS), /* Initialise the Central Store with Application's main reducer*/
     EffectsModule.forRoot([]), /* Start monitoring app's side effects */
     !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    BrowserAnimationsModule,
+    GoogleApiModule.forRoot({
+      provide: NG_GAPI_CONFIG,
+      useValue: gapiClientConfig
+    }),
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

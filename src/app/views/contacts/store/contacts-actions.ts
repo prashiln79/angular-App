@@ -1,8 +1,8 @@
 import {createAction, props} from '@ngrx/store';
 import { Contact } from '@app/core/models';
 
-export const loadAll = createAction(
-  '[Contacts] Load all'
+export const loadSpreadSheet = createAction(
+  '[Contacts] Load SpreadSheet'
 );
 
 export const load = createAction(
@@ -25,7 +25,7 @@ export const remove = createAction(
   props<{id: number}>()
 );
 
-export const loadAllSuccess = createAction(
+export const loadSpreadSheetSuccess = createAction(
   '[Contacts] Load all success',
   props<{contacts: Contact[]}>()
 );
