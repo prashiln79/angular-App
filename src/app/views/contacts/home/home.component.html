@@ -1,9 +1,9 @@
 
 
-<div class="card text-center">
+<div class="card text-center" *ngIf="spreadSheetDataObj['totalCost']">
   <div class="card-body">
-    <h6 class="card-subtitle mb-2 text-muted">Year Spending:</h6>
-    <h5 class="card-title">{{spreadSheetDataObj['currentMonthTotalSpending']}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Year Spending :</h6>
+    <h5 class="card-title">{{spreadSheetDataObj['totalCost']}}</h5>
     <div>
       <div>
         <div style="display: block">
@@ -24,7 +24,7 @@
 
 <div class="card text-center" *ngIf="spreadSheetDataObj['currentMonthTotalSpending']">
     <div class="card-body">
-      <h6 class="card-subtitle mb-2 text-muted">This month you spent:</h6>
+      <h6 class="card-subtitle mb-2 text-muted">Current Month Spending :</h6>
       <h5 class="card-title">{{spreadSheetDataObj['currentMonthTotalSpending']}}</h5>
       <div>
         <div>
@@ -42,11 +42,13 @@
 </div>
 
 
-<div class="card text-center">
+<div class="card text-center" *ngIf="spreadSheetDataObj['totalUtilityCost']">
   <div class="card-body">
-    <h6 class="card-subtitle mb-2 text-muted">Utility Spending:</h6>
-    <h5 class="card-title">{{spreadSheetDataObj['currentMonthTotalSpending']}}</h5>
-    <div>
+    
+    <h6 class="card-subtitle mb-2 text-muted">Utility Spending :
+    </h6>
+    <h5 *ngIf="!expandUtility" class="card-title">{{spreadSheetDataObj['totalUtilityCost']}}</h5>
+    <div *ngIf="!expandUtility">
       <div class="chart" >
         <canvas baseChart
           [data]="pieChartData"
@@ -59,10 +61,36 @@
         </canvas>
       </div>
     </div>
+
+    <!-- electricity data -->
+    <div class="card text-center utility" *ngIf="expandUtility">
+        <h6 class="card-subtitle mb-2 text-muted">Electricity :</h6>
+        <h5 class="card-title">₹{{spreadSheetDataObj['electricityTotalAmount']}}</h5>
+        <div>
+          <div>
+            <div style="display: block">
+              <canvas baseChart
+                [datasets]="electricitybarChartData"
+                [labels]="electricityChartLabels"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="barChartLegend"
+                [chartType]="barChartType">
+              </canvas>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="utility-button">
+      <button mat-mini-fab color="basic" (click)="expnadUtility()" aria-label="Example icon button with a menu icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    
   </div>
 </div>
 
-
+<div style="height: 1px;"></div>
   
 
 <!-- 

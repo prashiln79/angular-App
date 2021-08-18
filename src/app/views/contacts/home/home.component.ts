@@ -29,46 +29,10 @@ export class HomeComponent implements OnInit {
       }
     }
   };
-  public barChartLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [pluginDataLabels];
-
-  public barChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
-  ];
-
-
-
-
-// Pie
-public pieChartOptions: ChartOptions = {
-  responsive: true,
-  legend: {
-    position: 'top',
-  },
-  plugins: {
-    datalabels: {
-      formatter: (value, ctx) => {
-        const label = ctx.chart.data.labels[ctx.dataIndex];
-        return label;
-      },
-    },
-  }
-};
-
-public pieChartLabels: Label[] = [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'];
-public pieChartData: number[]   = [300, 500, 100];
-public pieChartType: ChartType = 'pie';
-public pieChartLegend   = true;
-public pieChartPlugins  = [pluginDataLabels];
-public pieChartColors   = [
-  {
-    backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)'],
-  },
-];
-
 
  // Doughnut
  public doughnutChartLabels: Label[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
@@ -84,24 +48,53 @@ public pieChartColors   = [
 
   contacts$ = this.contactsFacade.contacts$;
   public spreadSheetDataObj = {};
-
+  public expandUtility: boolean = false;
+  public month = ['','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   constructor(private contactsFacade: ContactsStoreFacade, private router: Router,private spreadSheetService: SpreadSheetService,private changeDetection: ChangeDetectorRef) { }
 
   ngOnInit() {
-    let reqData =[
+    this.spreadSheetService.getSpreadsheet([
       'Current!H1',
-      "Current!A2:E"
-    ];
-    this.spreadSheetService.getSpreadsheet(reqData).subscribe((response)=>{
+      "Current!A2:E",
+      "Utility!A2:F",
+      "Utility!H2:H2",
+      "Expenses!F2:F2",
+      "Electricity!A2:F",
+      "Expenses!A2:E",
+    ]).subscribe((response)=>{
       this.spreadSheetDataObj['currentMonthTotalSpending']  = response.valueRanges[0].values[0][0];
       this.spreadSheetDataObj['currentMonthSpendingList']   = response.valueRanges[1].values;
+      this.spreadSheetDataObj['totalUtilityList']           = response.valueRanges[2].values;
+      this.spreadSheetDataObj['totalUtilityCost']           = response.valueRanges[3].values[0][0];
+      this.spreadSheetDataObj['totalCost']                  = response.valueRanges[4].values[0][0];
+      this.spreadSheetDataObj['electricityList']            = (response.valueRanges[5].values).reverse();
+      this.spreadSheetDataObj['fullYearExpensesList']       = (response.valueRanges[6].values).reverse();
       this.buildPolarChartData(this.spreadSheetDataObj['currentMonthSpendingList']);
+      this.buildPieChartData(this.spreadSheetDataObj['totalUtilityList']);
+      this.buildFullyearExpensesChart(this.spreadSheetDataObj['fullYearExpensesList']);
     });
-
   }
 
+  public barChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  public barChartData: ChartDataSets[] = [
+    { data: [0,0,0,0,0,0,0,0,0,0,0,0], label: 'Expenses' },
+  ];
+  buildFullyearExpensesChart(data){
 
+    let barChartData: ChartDataSets[] = [
+      { data: [0,0,0,0,0,0,0,0,0,0,0,0], label: 'Expenses' },
+    ];
+
+    data.forEach((item)=>{
+      let date = parseInt(item[0].split('-')[1]);
+      let amount   = parseFloat(item[4].replace('₹','').replace(/,/g,''));
+      // @ts-ignore
+      barChartData[0].data[date]+= amount;
+    });
+    this.barChartData = barChartData;
+    this.changeDetection.detectChanges();
+  }
 
   public polarAreaChartLabels: Label[]      = [];
   public polarAreaChartData: SingleDataSet  = [];
@@ -124,7 +117,87 @@ public pieChartColors   = [
     this.polarAreaChartData   = Object.values(pieData);
     this.changeDetection.detectChanges();
   }
+
+
+  // Utility
+  public pieChartOptions: ChartOptions = {
+    responsive: true,
+    legend: {
+      position: 'top',
+    },
+    plugins: {
+      datalabels: {
+        formatter: (value, ctx) => {
+          const label = ctx.chart.data.labels[ctx.dataIndex];
+          return label;
+        },
+      },
+    }
+  };
+  public pieChartLabels: Label[] = [];
+  public pieChartData: number[]   = [];
+  public pieChartType: ChartType = 'pie';
+  public pieChartLegend   = true;
+  public pieChartPlugins  = [pluginDataLabels];
+  public pieChartColors   = [
+    {
+      backgroundColor: ['rgba(255,161,181,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)'],
+    },
+  ];
+  buildPieChartData(data:Array<any>){
+    let Data = {};
+    data.forEach((item)=>{
+      let category = item[3];
+      let amount   = parseFloat(item[4].replace('₹','').replace(/,/g,''));
+
+      if(Data[category]){
+        Data[category] = Data[category]+amount;
+      }else{
+        Data[category] = amount;
+      }
+    });
+    this.pieChartLabels = Object.keys(Data);
+     // @ts-ignore
+    this.pieChartData   = Object.values(Data);
+    this.changeDetection.detectChanges();
+  }
+
+  expnadUtility(){
+    this.expandUtility = !this.expandUtility;
+    this.buildElectricityChart(this.spreadSheetDataObj['electricityList']);
+  }
  
+  public electricityChartLabels: Label[] = [];
+  public electricitybarChartData: ChartDataSets[] = [
+    { data: [], label: 'Amount' },
+    { data: [], label: 'Unit' }
+  ];
+
+  buildElectricityChart(data){
+    this.electricityChartLabels   = [];
+    this.electricitybarChartData  = [
+      { data: [], label: 'Amount' },
+      { data: [], label: 'Unit' }
+    ];
+    let Data      = {};
+    let totalAmt  = 0;
+
+
+    data.forEach((item)=>{
+      let amount   = parseFloat(item[4].replace('₹','').replace(/,/g,''));
+      totalAmt+= amount;
+      let unit   = parseFloat(item[5].replace(/,/g,''));
+      let date = (item[0].split('-')[2]+'/'+ this.month[parseInt(item[0].split('-')[1])]+' - '+item[1].split('-')[2]+'/'+ this.month[parseInt(item[1].split('-')[1])])||'error';
+      this.electricityChartLabels.push(date);
+      this.electricitybarChartData[0].data.push(amount);
+      this.electricitybarChartData[1].data.push(unit);
+     
+    });
+    this.spreadSheetDataObj['electricityTotalAmount'] = totalAmt;
+
+    this.changeDetection.detectChanges();
+
+  }
   
   editContact(contact: Contact) {
     this.router.navigate(['/contacts', contact.id, 'edit']);
