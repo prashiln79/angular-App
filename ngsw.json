@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1629297907441,
+  "timestamp": 1629349365946,
   "index": "https://prashiln79.github.io/angular-App/index.html",
   "assetGroups": [
     {
@@ -17,9 +17,9 @@
         "https://prashiln79.github.io/angular-App/main.c738b75c5c5962b3a340.js",
         "https://prashiln79.github.io/angular-App/polyfills-es5.fcbdaa1a43bcc6b10d0f.js",
         "https://prashiln79.github.io/angular-App/polyfills.8dc11b66203ebe08686d.js",
-        "https://prashiln79.github.io/angular-App/runtime.5fd10ea8a4f8a42968d2.js",
+        "https://prashiln79.github.io/angular-App/runtime.224f287ad6884fb2fb03.js",
         "https://prashiln79.github.io/angular-App/scripts.f22ea8f40662ea720806.js",
-        "https://prashiln79.github.io/angular-App/styles.859b835b09c9f4bebb42.css"
+        "https://prashiln79.github.io/angular-App/styles.667e93210da61810f357.css"
       ],
       "patterns": []
     },
@@ -80,13 +80,13 @@
     "https://prashiln79.github.io/angular-App/fontawesome-webfont.8b43027f47b20503057d.eot": "d980c2ce873dc43af460d4d572d441304499f400",
     "https://prashiln79.github.io/angular-App/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg": "98a8aa5cf7d62c2eff5f07ede8d844b874ef06ed",
     "https://prashiln79.github.io/angular-App/fontawesome-webfont.f691f37e57f04c152e23.woff": "28b782240b3e76db824e12c02754a9731a167527",
-    "https://prashiln79.github.io/angular-App/index.html": "7f11280361177c4075571b0e064a68cbaebdfb28",
+    "https://prashiln79.github.io/angular-App/index.html": "04c479da6dff07b25317b3bb58667f2b2e665a65",
     "https://prashiln79.github.io/angular-App/main.c738b75c5c5962b3a340.js": "02ba8ebbbc3e2be9ff9dea81484897600165f984",
     "https://prashiln79.github.io/angular-App/polyfills-es5.fcbdaa1a43bcc6b10d0f.js": "30f148ea3124280e1ba46d2e4d220d4f8291d467",
     "https://prashiln79.github.io/angular-App/polyfills.8dc11b66203ebe08686d.js": "222833d3fa7af06d525ed3503eecb27009f1f148",
-    "https://prashiln79.github.io/angular-App/runtime.5fd10ea8a4f8a42968d2.js": "0e95ce6fca8e80064fe11d2a199acf046d044cb1",
+    "https://prashiln79.github.io/angular-App/runtime.224f287ad6884fb2fb03.js": "ea809b0f7368f558fe5baa218a145964001e19b3",
     "https://prashiln79.github.io/angular-App/scripts.f22ea8f40662ea720806.js": "a706a951abe05a4a7dfa9b826b098ee12e4a949e",
-    "https://prashiln79.github.io/angular-App/styles.859b835b09c9f4bebb42.css": "d7f61c7188737b92b821caaddee044d52fff669b"
+    "https://prashiln79.github.io/angular-App/styles.667e93210da61810f357.css": "8549f1c7b381c74a18009882803de71f2ba02e48"
   },
   "navigationUrls": [
     {
