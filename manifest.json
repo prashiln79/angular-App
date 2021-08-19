@@ -6,7 +6,7 @@
   "display": "standalone",
   "scope": ".",
   "start_url": "./",
-  "description": "Demo PWA for A2HS feature",
+  "description": "To Track Expenses",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",
