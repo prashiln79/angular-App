@@ -1,12 +1,12 @@
 {
   "name": "Expenses",
   "short_name": "Expenses",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "theme_color": "#417f98",
+  "background_color": "#417f98",
   "display": "standalone",
   "scope": ".",
   "start_url": "./",
-  "description": "Demo PWA for A2HS feature",
+  "description": "To Track Expenses",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",

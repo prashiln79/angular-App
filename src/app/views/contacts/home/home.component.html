@@ -103,18 +103,18 @@
     </div>
 
     <!--BoardBand-->
-    <!-- <div style="display: block;">
-      <canvas baseChart width="400" height="400"
-                  [datasets]="lineChartData"
-                  [labels]="lineChartLabels"
-                  [options]="lineChartOptions"
-                  [colors]="lineChartColors"
-                  [legend]="lineChartLegend"
-                  [chartType]="lineChartType"
-                  [plugins]="lineChartPlugins"
-                  (chartHover)="chartHovered($event)"
-                  (chartClick)="chartClicked($event)"></canvas>
-      </div> -->
+    <div class="card text-center utility boardband" *ngIf="expandUtility">
+      <h6 class="card-subtitle mb-2 text-muted">BoardBand :</h6>
+      <h5 class="card-title">₹{{boardBandData.amount}}
+        <br>
+        <h6><span>{{boardBandData.startDate}}</span><span>{{boardBandData.endDate}}</span></h6>
+        <div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" [style.width]="boardBandData.percentage"></div>
+          </div>
+        </div>
+      </h5>
+    </div>
 
     <div class="utility-button">
       <button mat-mini-fab color="basic" (click)="expnadUtility()" aria-label="Example icon button with a menu icon">

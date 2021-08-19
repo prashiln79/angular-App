@@ -50,6 +50,7 @@ export class HomeComponent implements OnInit {
   public spreadSheetDataObj = {};
   public expandUtility: boolean = false;
   public month = ['','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  public boardBandData = { startDate : '', endDate : '',percentage:'0%',amount:0};
 
   constructor(private contactsFacade: ContactsStoreFacade, private router: Router,private spreadSheetService: SpreadSheetService,private changeDetection: ChangeDetectorRef) { }
 
@@ -69,9 +70,9 @@ export class HomeComponent implements OnInit {
       this.spreadSheetDataObj['totalUtilityList']           = response.valueRanges[2].values;
       this.spreadSheetDataObj['totalUtilityCost']           = response.valueRanges[3].values[0][0];
       this.spreadSheetDataObj['totalCost']                  = response.valueRanges[4].values[0][0];
-      this.spreadSheetDataObj['electricityList']            = (response.valueRanges[5].values).reverse();
+      this.spreadSheetDataObj['electricityList']            = (response.valueRanges[5].values);
       this.spreadSheetDataObj['fullYearExpensesList']       = (response.valueRanges[6].values).reverse();
-      this.spreadSheetDataObj['waterList']                  = (response.valueRanges[7].values).reverse();
+      this.spreadSheetDataObj['waterList']                  = (response.valueRanges[7].values);
       this.buildPolarChartData(this.spreadSheetDataObj['currentMonthSpendingList']);
       this.buildPieChartData(this.spreadSheetDataObj['totalUtilityList']);
       this.buildFullyearExpensesChart(this.spreadSheetDataObj['fullYearExpensesList']);
@@ -86,7 +87,6 @@ export class HomeComponent implements OnInit {
     let barChartData: ChartDataSets[] = [
       { data: [0,0,0,0,0,0,0,0,0,0,0,0], label: 'Expenses' },
     ];
-
     data.forEach((item)=>{
       let date = (parseInt(item[0].split('-')[1])-1);
       let amount   = parseFloat(item[4].replace('₹','').replace(/,/g,''));
@@ -96,6 +96,20 @@ export class HomeComponent implements OnInit {
     this.barChartData = barChartData;
     this.changeDetection.detectChanges();
   }
+
+
+  buildBroadbandBar(data){
+    this.boardBandData.startDate  = data[0].split('-')[2]+'-'+this.month[parseInt(data[0].split('-')[1])]+'-'+data[0].split('-')[0];
+    this.boardBandData.endDate    = data[1].split('-')[2]+'-'+this.month[parseInt(data[1].split('-')[1])]+'-'+data[1].split('-')[0];
+    // @ts-ignore
+    let totalDays = Math.ceil(Math.abs(new Date(data[0]) - new Date(data[1])) / (1000 * 60 * 60 * 24)); 
+    // @ts-ignore
+    let diffDays = Math.ceil(Math.abs(new Date(data[1]) - new Date()) / (1000 * 60 * 60 * 24)); 
+    this.boardBandData.percentage = (100 - Math.round((diffDays/totalDays)*100))+'%';
+    this.boardBandData.amount = data[4];
+  }
+
+
 
   public polarAreaChartLabels: Label[]      = [];
   public polarAreaChartData: SingleDataSet  = [];
@@ -155,6 +169,10 @@ export class HomeComponent implements OnInit {
         Data[category] = Data[category]+amount;
       }else{
         Data[category] = amount;
+      }
+
+      if(category == 'Boardband' && ((new Date)<(new Date (item[1])))){
+        this.buildBroadbandBar(item);
       }
     });
     this.pieChartLabels = Object.keys(Data);
