@@ -1,28 +1,34 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { GoogleApiService, GoogleAuthService } from 'ng-gapi';
+import { Observable, Subject } from 'rxjs';
 import GoogleUser = gapi.auth2.GoogleUser;
 
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class AuthService {
 
 
-    loggedIn: boolean;
-    token:string;
+    loggedIn: boolean = false;
+    token: string;
     public static SESSION_STORAGE_KEY: string = 'accessToken';
     public static USER: string = 'user';
     public user;
+    public login = new Subject<string>();
 
-    constructor(private googleAuth: GoogleAuthService,gapiService: GoogleApiService) {
+
+    constructor(private googleAuth: GoogleAuthService, gapiService: GoogleApiService) {
         this.user = JSON.parse(localStorage.getItem(AuthService.USER)) || null;
-        if(this.user){
+        if (this.user) {
             this.loggedIn = (this.user != null);
             this.token = this.user.authToken;
         }
-        gapiService.onLoad().subscribe(()=> {
+        gapiService.onLoad().subscribe(() => {
             console.log('enter');
         });
-     }
+    }
 
     public getToken(): string {
         let token: string = localStorage.getItem(AuthService.SESSION_STORAGE_KEY);
@@ -51,14 +57,16 @@ export class AuthService {
     }
 
     private signInSuccessHandler(res: GoogleUser) {
-        if(res['Ts']['RT'] != 'Prashil'){
+        if (res['Ts']['RT'] != 'Prashil') {
             this.signOut();
             return;
         }
-        localStorage.setItem( AuthService.SESSION_STORAGE_KEY, res.getAuthResponse().access_token);
-        localStorage.setItem( AuthService.USER, JSON.stringify(res.getBasicProfile()));
-        this.user       = res.getBasicProfile();
-        this.loggedIn   = (this.user != null);
+        localStorage.setItem(AuthService.SESSION_STORAGE_KEY, res.getAuthResponse().access_token);
+        localStorage.setItem(AuthService.USER, JSON.stringify(res.getBasicProfile()));
+        this.user = res.getBasicProfile();
+        this.loggedIn = (this.user != null);
+        this.login.next('sign-In');
+        window.location.reload();
     }
 
 
@@ -70,13 +78,17 @@ export class AuthService {
                 console.error(e);
             }
             this.clearAuthDetails();
+            this.login.next('sign-out');
+            window.location.reload();
         });
     }
 
-    clearAuthDetails(){
+    clearAuthDetails() {
         localStorage.clear();
         this.user = null;
-        this.loggedIn  = false;
+        this.loggedIn = false;
     }
 
 }
+
+

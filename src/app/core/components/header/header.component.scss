@@ -30,6 +30,7 @@
 
 nav{
   padding: 10px;
+  border-radius: 4px;
 }
 
 .navBar{
@@ -41,11 +42,12 @@ nav{
   padding: 2px;
   justify-content: space-between;
   color: white;
-  margin-right: 10px;
 }
 
 .dropdown-menu{
   min-width: 0 !important;
+  top: 3.1em;
+  left: -33px;
 }
 
 .dropdown{

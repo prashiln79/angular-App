@@ -1,8 +1,4 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-import * as fromRoot from '@app/root-store';
-import {select, Store} from '@ngrx/store';
-import { SocialAuthService, SocialUser, GoogleLoginProvider} from "angularx-social-login";
 
 
 
@@ -10,7 +6,7 @@ import { SocialAuthService, SocialUser, GoogleLoginProvider} from "angularx-soci
 @Component({
   selector: 'app-root',
   template: `
-    <app-header [title]="currentPageTitle$ | async" ></app-header>
+    <app-header [title]="currentPageTitle" ></app-header>
     <div class="container">
       <router-outlet></router-outlet>
       <app-footer></app-footer>
@@ -20,11 +16,9 @@ import { SocialAuthService, SocialUser, GoogleLoginProvider} from "angularx-soci
 })
 export class AppComponent implements OnInit {
 
-  currentPageTitle$ = this.store.pipe(
-    select(fromRoot.getCurrentTitle)
-  );
+  public currentPageTitle:string = '';
   
-  constructor(private store: Store<fromRoot.State>) {}
+  constructor() {}
   ngOnInit(): void {
   }
 

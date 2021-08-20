@@ -1,4 +1,13 @@
 
+<div *ngIf="enableLoader" class="spinner-grow text-secondary" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+
+<ng-container *ngIf="!enableLoader">
+  <!-- <div class="status-board">
+    <mat-card ><mat-icon>light</mat-icon></mat-card>
+    <mat-card><mat-icon>notes</mat-icon></mat-card>
+</div> -->
 
 <div class="card text-center" *ngIf="spreadSheetDataObj['totalCost']">
   <div class="card-body">
@@ -21,6 +30,7 @@
   </div>
 </div>
 
+<mat-divider></mat-divider>
 
 <div class="card text-center" *ngIf="spreadSheetDataObj['currentMonthTotalSpending']">
     <div class="card-body">
@@ -41,10 +51,10 @@
     </div>
 </div>
 
+<mat-divider></mat-divider>
 
 <div class="card text-center" *ngIf="spreadSheetDataObj['totalUtilityCost']">
   <div class="card-body">
-    
     <h6 class="card-subtitle mb-2 text-muted">Utility Spending :
     </h6>
     <h5 *ngIf="!expandUtility" class="card-title">{{spreadSheetDataObj['totalUtilityCost']}}</h5>
@@ -83,7 +93,7 @@
     </div>
 
       <!-- water data -->
-      <div class="card text-center utility" *ngIf="expandUtility">
+    <div class="card text-center utility" *ngIf="expandUtility">
         <h6 class="card-subtitle mb-2 text-muted">Water :</h6>
         <h5 class="card-title">₹{{spreadSheetDataObj['waterTotalAmount']}}</h5>
         <div>
@@ -117,16 +127,17 @@
     </div>
 
     <div class="utility-button">
-      <button mat-mini-fab color="basic" (click)="expnadUtility()" aria-label="Example icon button with a menu icon">
-        <mat-icon>menu</mat-icon>
+      <button mat-icon-button color="basic" (click)="expnadUtility()" aria-label="Example icon button with a menu icon">
+        <mat-icon *ngIf="!expandUtility">menu</mat-icon>
+        <mat-icon *ngIf="expandUtility">clear</mat-icon>
       </button>
     </div>
     
   </div>
 </div>
 
-<div style="height: 1px;"></div>
-  
+<mat-divider></mat-divider>
+</ng-container>
 
 <!-- 
 <div>

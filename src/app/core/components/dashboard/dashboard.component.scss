@@ -13,11 +13,6 @@
     color: #7a7a7a;
 }
 
-.card{
-    margin-bottom: 30px;
-}
-
-
 .utility-button{
     right: 8px;
     top: 8px;
@@ -51,4 +46,26 @@
         background-color: #417f98 !important;
     }
     
+}
+
+.mat-divider{
+    margin: 10px 10px;
+}
+
+.spinner-grow{
+    margin-left: 44%;
+}
+
+.status-board{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 10px 0;
+    margin-top: -9px;
+
+    mat-card{
+        width: 57px;
+        height: 56px;
+        margin: 0 5px;
+    }
 }

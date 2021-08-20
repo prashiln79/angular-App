@@ -2,10 +2,8 @@ import { Injectable } from '@angular/core';
 import {
     HttpRequest,
     HttpHandler,
-    HttpEvent,
     HttpInterceptor
 } from '@angular/common/http';
-import { SocialAuthService } from 'angularx-social-login';
 import { Observable, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 import { catchError } from 'rxjs/internal/operators/catchError';
@@ -13,7 +11,7 @@ import { catchError } from 'rxjs/internal/operators/catchError';
 
 
 @Injectable()
-export class TokenInterceptor implements HttpInterceptor {
+export class TokenInterceptorService implements HttpInterceptor {
 
     constructor(private auth: AuthService) {
 

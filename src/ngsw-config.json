@@ -5,7 +5,7 @@
     {
       "name": "api",
       "urls": [
-        "https://contacts-api.vatsaev.com/**"
+        "https://sheets.googleapis.com/v4/spreadsheets/**"
       ],
       "cacheConfig": {
         "strategy": "freshness",

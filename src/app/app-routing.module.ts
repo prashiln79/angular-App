@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CanActivateApp } from './auth/route-guard.CanActivate';
+import { DashboardComponent } from './core/components/dashboard/dashboard.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: '/contacts'
+    component: DashboardComponent,
+    canActivate: [CanActivateApp]
   },
-  {
-    path: 'contacts', loadChildren: () => import('src/app/views/contacts/contacts.module').then(m => m.ContactsModule),
-  }
 ];
 
 @NgModule({

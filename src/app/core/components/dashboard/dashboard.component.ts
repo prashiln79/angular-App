@@ -1,22 +1,19 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Contact } from '@app/core/models';
-import { Router } from '@angular/router';
-import { ContactsStoreFacade } from '@app/contacts-store/contacts.store-facade';
-import { SpreadSheetService } from '../services/spredsheet.service';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label, MultiDataSet, SingleDataSet } from 'ng2-charts';
 import { ChangeDetectorRef } from '@angular/core';
+import { SpreadSheetService } from '@app/core/services/spredsheet.service';
 
 
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class HomeComponent implements OnInit {
+export class DashboardComponent implements OnInit {
 
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -34,25 +31,21 @@ export class HomeComponent implements OnInit {
   public barChartLegend = true;
   public barChartPlugins = [pluginDataLabels];
 
- // Doughnut
- public doughnutChartLabels: Label[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
- public doughnutChartData: MultiDataSet = [
-   [350, 450, 100],
-   [50, 150, 120],
-   [250, 130, 70],
- ];
- public doughnutChartType: ChartType = 'doughnut';
-
-
-
-
-  contacts$ = this.contactsFacade.contacts$;
+  // Doughnut
+  public doughnutChartLabels: Label[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
+  public doughnutChartData: MultiDataSet = [
+    [350, 450, 100],
+    [50, 150, 120],
+    [250, 130, 70],
+  ];
+  public doughnutChartType: ChartType = 'doughnut';
   public spreadSheetDataObj = {};
   public expandUtility: boolean = false;
   public month = ['','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   public boardBandData = { startDate : '', endDate : '',percentage:'0%',amount:0};
+  public enableLoader = true;
 
-  constructor(private contactsFacade: ContactsStoreFacade, private router: Router,private spreadSheetService: SpreadSheetService,private changeDetection: ChangeDetectorRef) { }
+  constructor(private spreadSheetService: SpreadSheetService,private changeDetection: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.spreadSheetService.getSpreadsheet([
@@ -65,12 +58,13 @@ export class HomeComponent implements OnInit {
       "Expenses!A2:E",
       "Water!A2:F"
     ]).subscribe((response)=>{
+      this.enableLoader = false;
       this.spreadSheetDataObj['currentMonthTotalSpending']  = response.valueRanges[0].values[0][0];
       this.spreadSheetDataObj['currentMonthSpendingList']   = response.valueRanges[1].values;
       this.spreadSheetDataObj['totalUtilityList']           = response.valueRanges[2].values;
       this.spreadSheetDataObj['totalUtilityCost']           = response.valueRanges[3].values[0][0];
       this.spreadSheetDataObj['totalCost']                  = response.valueRanges[4].values[0][0];
-      this.spreadSheetDataObj['electricityList']            = (response.valueRanges[5].values);
+      this.spreadSheetDataObj['electricityList']            = (response.valueRanges[5].values).reverse();
       this.spreadSheetDataObj['fullYearExpensesList']       = (response.valueRanges[6].values).reverse();
       this.spreadSheetDataObj['waterList']                  = (response.valueRanges[7].values);
       this.buildPolarChartData(this.spreadSheetDataObj['currentMonthSpendingList']);
@@ -182,6 +176,7 @@ export class HomeComponent implements OnInit {
   }
 
   expnadUtility(){
+    //navigator.vibrate(100);
     this.expandUtility = !this.expandUtility;
     this.buildElectricityChart(this.spreadSheetDataObj['electricityList']);
     this.buildWaterChart(this.spreadSheetDataObj['waterList']);
@@ -243,19 +238,5 @@ export class HomeComponent implements OnInit {
     this.changeDetection.detectChanges();
   }
   
-  editContact(contact: Contact) {
-    this.router.navigate(['/contacts', contact.id, 'edit']);
-  }
-
-  showContact(contact: Contact) {
-    this.router.navigate(['/contacts', contact.id]);
-  }
-
-  deleteContact(contact: Contact) {
-    const r = confirm('Are you sure?');
-    if (r) {
-      this.contactsFacade.deleteContact(contact.id);
-    }
-  }
-
+  
 }

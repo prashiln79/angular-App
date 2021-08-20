@@ -1,10 +1,10 @@
-<!-- 
-Created by
-<a target="_blank" rel="noopener" href="https://twitter.com/avatsaev">
-  <i class="fa fa-twitter"></i>@avatsaev
-</a>
 
-Source code on
-<a target="_blank" rel="noopener" href="https://github.com/avatsaev/angular-contacts-app-example">
-  <i class="fa fa-github"></i> GitHub
-</a> -->
+<div class="footer" *ngIf="auth.isloggedIn()">
+    <button *ngIf="allOption" style="background-color: #4490af !important;" mat-fab color="primary" aria-label="Example icon button with a delete icon">
+      <mat-icon>notes</mat-icon>
+    </button>
+
+    <button (click)="showAllOption()" mat-fab color="primary" aria-label="Example icon button with a delete icon">
+      <mat-icon>add</mat-icon>
+    </button>
+</div>
