@@ -30,9 +30,13 @@ import { FooterComponent } from './core/components/footer/footer.component';
 import { DashboardComponent } from './core/components/dashboard/dashboard.component';
 import { CanActivateApp } from './auth/route-guard.CanActivate';
 import { TokenInterceptorService } from './auth/token.interceptor';
+import {MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MatTooltipModule} from "@angular/material/tooltip";
+import { HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerModule} from '@angular/platform-browser';
+
+
 
 let gapiClientConfig: NgGapiClientConfig = {
-  client_id: "825310645531-8j0bnfk6ge5vb8q1j8mnq0sudop9ikod.apps.googleusercontent.com",
+  client_id: environment.client_id,
   discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
   scope: [
       "https://www.googleapis.com/auth/spreadsheets",
@@ -67,7 +71,9 @@ let gapiClientConfig: NgGapiClientConfig = {
     GoogleApiModule.forRoot({
       provide: NG_GAPI_CONFIG,
       useValue: gapiClientConfig
-    })
+    }),
+    BrowserAnimationsModule,
+    MatTooltipModule,
   ],
   providers: [
     CanActivateApp,
@@ -75,7 +81,9 @@ let gapiClientConfig: NgGapiClientConfig = {
       provide: HTTP_INTERCEPTORS, 
       useClass: TokenInterceptorService, 
       multi: true
-    }
+    },
+    MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER,
+    {provide: HAMMER_GESTURE_CONFIG, useClass: HammerGestureConfig},
   ],
   bootstrap: [AppComponent]
 })

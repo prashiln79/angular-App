@@ -41,4 +41,5 @@ testem.log
 Thumbs.db
 
 #Production files
-/src/environments
+src/environments
+

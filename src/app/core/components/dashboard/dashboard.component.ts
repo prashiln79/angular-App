@@ -42,7 +42,7 @@ export class DashboardComponent implements OnInit {
   public spreadSheetDataObj = {};
   public expandUtility: boolean = false;
   public month = ['','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  public boardBandData = { startDate : '', endDate : '',percentage:'0%',amount:0};
+  public statusBoardItems:Array<{startDate : '', endDate : '', percentage:'0%', amount:0, days:0, describe:'',name:''}>=[];
   public enableLoader = true;
 
   constructor(private spreadSheetService: SpreadSheetService,private changeDetection: ChangeDetectorRef) { }
@@ -93,14 +93,20 @@ export class DashboardComponent implements OnInit {
 
 
   buildBroadbandBar(data){
-    this.boardBandData.startDate  = data[0].split('-')[2]+'-'+this.month[parseInt(data[0].split('-')[1])]+'-'+data[0].split('-')[0];
-    this.boardBandData.endDate    = data[1].split('-')[2]+'-'+this.month[parseInt(data[1].split('-')[1])]+'-'+data[1].split('-')[0];
+    let boardItem = {};
+    boardItem['startDate']  = data[0].split('-')[2]+'-'+this.month[parseInt(data[0].split('-')[1])]+'-'+data[0].split('-')[0];
+    boardItem['endDate']    = data[1].split('-')[2]+'-'+this.month[parseInt(data[1].split('-')[1])]+'-'+data[1].split('-')[0];
     // @ts-ignore
     let totalDays = Math.ceil(Math.abs(new Date(data[0]) - new Date(data[1])) / (1000 * 60 * 60 * 24)); 
     // @ts-ignore
     let diffDays = Math.ceil(Math.abs(new Date(data[1]) - new Date()) / (1000 * 60 * 60 * 24)); 
-    this.boardBandData.percentage = (100 - Math.round((diffDays/totalDays)*100))+'%';
-    this.boardBandData.amount = data[4];
+    boardItem['percentage'] = (100 - Math.round((diffDays/totalDays)*100))+'%';
+    boardItem['amount']     = data[4];
+    boardItem['days']       = diffDays>=0?diffDays:0;
+    boardItem['describe']   = data[2];
+    boardItem['name']       = data[3];
+    // @ts-ignore
+    this.statusBoardItems.push(boardItem);
   }
 
 
@@ -165,7 +171,7 @@ export class DashboardComponent implements OnInit {
         Data[category] = amount;
       }
 
-      if(category == 'Boardband' && ((new Date)<(new Date (item[1])))){
+      if(((new Date)<(new Date (item[1])))){
         this.buildBroadbandBar(item);
       }
     });
