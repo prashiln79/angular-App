@@ -4,44 +4,14 @@
 </div>
 
 <ng-container *ngIf="!enableLoader">
-  <mat-card class="status-board" >
-    <ng-container *ngFor="let item of statusBoardItems">
-      <div class="round-progress blue" [matTooltipTouchGestures]="'auto'" matTooltip="Info about the action" > <span class="round-progress-left"> <span class="round-progress-bar"></span> </span> <span class="round-progress-right"> <span class="round-progress-bar"></span> </span>
-        <div class="round-progress-value" >{{item.days}}<b>Days</b></div>
-        <div class="label">{{item.name}}</div>
-      </div>
-    </ng-container>
 
-  </mat-card>
 
-<div class="card text-center" *ngIf="spreadSheetDataObj['totalCost']">
-  <div class="card-body">
-    <h6 class="card-subtitle mb-2 text-muted">Year Spending :</h6>
-    <h5 class="card-title">{{spreadSheetDataObj['totalCost']}}</h5>
-    <div>
-      <div>
-        <div style="display: block">
-          <canvas baseChart
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [plugins]="barChartPlugins"
-            [legend]="barChartLegend"
-            [chartType]="barChartType">
-          </canvas>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<mat-divider></mat-divider>
-
-<div class="card text-center" *ngIf="spreadSheetDataObj['currentMonthTotalSpending']">
+  <div class="card text-center" *ngIf="spreadSheetDataObj['currentMonthTotalSpending']">
     <div class="card-body">
       <h6 class="card-subtitle mb-2 text-muted">Current Month Spending :</h6>
       <h5 class="card-title">{{spreadSheetDataObj['currentMonthTotalSpending']}}</h5>
-      <div>
+      <div  *ngIf="!showTxn">
         <div>
           <div style="display: block">
             <canvas baseChart
@@ -53,8 +23,28 @@
           </div>
         </div>
       </div>
+      <div class="utility-button">
+        <button mat-icon-button color="basic" (click)="expnadTxn()" aria-label="Example icon button with a menu icon">
+          <mat-icon>menu</mat-icon>
+     
+        </button>
+      </div>
+      <ng-container *ngFor="let item of spreadSheetDataObj['currentMonthSpendingList']">
+      <div class="list-group" *ngIf="showTxn">
+        
+        <a  class="list-group-item list-group-item-action " aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1" class="listHeading"><mat-icon>monetization_on</mat-icon>{{item[3]}}</h5>
+              <small style="color: #afafaf;">{{item[0]}}</small>
+            </div>
+          <p class="list-desc mb-1">{{item[1]}}</p>
+          <p class="listAmt mb-1">{{item[4]}}</p>
+        </a>
+      </div>
+    </ng-container>
     </div>
 </div>
+
 
 <mat-divider></mat-divider>
 
@@ -62,7 +52,9 @@
   <div class="card-body">
     <h6 class="card-subtitle mb-2 text-muted">Utility Spending :
     </h6>
-    <h5 *ngIf="!expandUtility" class="card-title">{{spreadSheetDataObj['totalUtilityCost']}}</h5>
+    <h5 *ngIf="expandUtility" class="card-title">{{spreadSheetDataObj['totalUtilityCost']}}</h5>
+    <h5 *ngIf="!expandUtility" class="card-title">₹{{spreadSheetDataObj['monthlyUtilityCost']}}</h5>
+    
     <div *ngIf="!expandUtility">
       <div class="chart" >
         <canvas baseChart
@@ -79,9 +71,13 @@
 
     <!-- electricity data -->
     <div class="card text-center utility" *ngIf="expandUtility">
-        <h6 class="card-subtitle mb-2 text-muted">Electricity :</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Electricity : {{spreadSheetDataObj['electricityID']}}</h6>
         <h5 class="card-title">₹{{spreadSheetDataObj['electricityTotalAmount']}}</h5>
         <div>
+          <div class="unit">
+            <label>{{electricityPerMonthunits}}<b style="font-size: 0.8em;">KWH</b></label>
+            <span>₹{{electricityPerMonthCost}}</span>
+          </div>
           <div>
             <div style="display: block">
               <canvas baseChart
@@ -99,9 +95,13 @@
 
       <!-- water data -->
     <div class="card text-center utility" *ngIf="expandUtility">
-        <h6 class="card-subtitle mb-2 text-muted">Water :</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Water : {{spreadSheetDataObj['WaterID']}}</h6>
         <h5 class="card-title">₹{{spreadSheetDataObj['waterTotalAmount']}}</h5>
         <div>
+          <div class="unit">
+            <label>{{waterPerMonthunits}}<b style="font-size: 0.8em;">LPCD</b></label>
+            <span>₹{{waterPerMonthCost}}</span>
+          </div>
           <div>
             <div style="display: block">
               <canvas baseChart
@@ -144,6 +144,45 @@
 </div>
 
 <mat-divider></mat-divider>
+
+<div class="card text-center" *ngIf="spreadSheetDataObj['totalCost']">
+  <div class="card-body">
+    <h6 class="card-subtitle mb-2 text-muted">Year Spending :</h6>
+    <h5 class="card-title">{{spreadSheetDataObj['totalCost']}}</h5>
+    <mat-divider></mat-divider>
+    <span class="lastYearAmt">{{spreadSheetDataObj['lastYeartotalCost']}}</span>
+    <div>
+      <div>
+        <div style="display: block">
+          <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<mat-divider></mat-divider>
+
+<mat-card class="status-board" *ngIf="statusBoardItems && statusBoardItems.length>0">
+  <mat-card-header>
+    Active Service
+  </mat-card-header>
+  <ng-container *ngFor="let item of statusBoardItems">
+    <div class="round-progress blue" [matTooltipTouchGestures]="'auto'" matTooltip="Info about the action" > <span class="round-progress-left"> <span class="round-progress-bar"></span> </span> <span class="round-progress-right"> <span class="round-progress-bar"></span> </span>
+      <div class="round-progress-value" >{{item.days}}<b>Days</b></div>
+      <div class="label">{{ (item.name == 'Telephone') ? '📱'+item.describe : item.name}}</div>
+    </div>
+  </ng-container>
+
+</mat-card>
 </ng-container>
 
 <!-- 

@@ -44,6 +44,11 @@ export class DashboardComponent implements OnInit {
   public month = ['','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   public statusBoardItems:Array<{startDate : '', endDate : '', percentage:'0%', amount:0, days:0, describe:'',name:''}>=[];
   public enableLoader = true;
+  public showTxn: boolean = false;
+  public electricityPerMonthCost: number;
+  public electricityPerMonthunits: number;
+  public waterPerMonthCost: number;
+  public waterPerMonthunits: number;
 
   constructor(private spreadSheetService: SpreadSheetService,private changeDetection: ChangeDetectorRef) { }
 
@@ -56,7 +61,10 @@ export class DashboardComponent implements OnInit {
       "Expenses!F2:F2",
       "Electricity!A2:F",
       "Expenses!A2:E",
-      "Water!A2:F"
+      "Water!A2:F",
+      "Data!I2:I2",
+      "Data!J2:J2",
+      "2021 Expenses!F2:F2",
     ]).subscribe((response)=>{
       this.enableLoader = false;
       this.spreadSheetDataObj['currentMonthTotalSpending']  = response.valueRanges[0].values[0][0];
@@ -67,9 +75,15 @@ export class DashboardComponent implements OnInit {
       this.spreadSheetDataObj['electricityList']            = (response.valueRanges[5].values).reverse();
       this.spreadSheetDataObj['fullYearExpensesList']       = (response.valueRanges[6].values).reverse();
       this.spreadSheetDataObj['waterList']                  = (response.valueRanges[7].values);
+      this.spreadSheetDataObj['electricityID']              = response.valueRanges[8].values[0][0];
+      this.spreadSheetDataObj['WaterID']                    = response.valueRanges[9].values[0][0];
+      this.spreadSheetDataObj['lastYeartotalCost']          = response.valueRanges[10].values[0][0];
+      this.spreadSheetDataObj['monthlyUtilityCost']         = 0;
       this.buildPolarChartData(this.spreadSheetDataObj['currentMonthSpendingList']);
       this.buildPieChartData(this.spreadSheetDataObj['totalUtilityList']);
       this.buildFullyearExpensesChart(this.spreadSheetDataObj['fullYearExpensesList']);
+
+
     });
   }
 
@@ -83,13 +97,14 @@ export class DashboardComponent implements OnInit {
     ];
     data.forEach((item)=>{
       let date = (parseInt(item[0].split('-')[1])-1);
-      let amount   = parseFloat(item[4].replace('₹','').replace(/,/g,''));
+      let amount   = parseInt(item[4].replace('₹','').replace(/,/g,''));
       // @ts-ignore
       barChartData[0].data[date]+= amount;
     });
     this.barChartData = barChartData;
     this.changeDetection.detectChanges();
   }
+  
 
 
   buildBroadbandBar(data){
@@ -116,25 +131,27 @@ export class DashboardComponent implements OnInit {
   public polarAreaLegend                    = true;
   public polarAreaChartType: ChartType = 'polarArea';
   buildPolarChartData(data:Array<any>){
-    let pieData = {};
-    data.forEach((item)=>{
-      let category = item[3];
-      let amount   = parseFloat(item[4].replace('₹','').replace(/,/g,''));
+      if(data){
+        let pieData = {};
+        data.forEach((item)=>{
+          let category = item[3];
+          let amount   = parseFloat(item[4].replace('₹','').replace(/,/g,''));
 
-      if(pieData[category]){
-        pieData[category] = pieData[category]+amount;
-      }else{
-        pieData[category] = amount;
-      }
-    });
-    this.polarAreaChartLabels = Object.keys(pieData);
-     // @ts-ignore
-    this.polarAreaChartData   = Object.values(pieData);
-    this.changeDetection.detectChanges();
+          if(pieData[category]){
+            pieData[category] = pieData[category]+amount;
+          }else{
+            pieData[category] = amount;
+          }
+        });
+        this.polarAreaChartLabels = Object.keys(pieData);
+        // @ts-ignore
+        this.polarAreaChartData   = Object.values(pieData);
+        this.changeDetection.detectChanges();
+    }
   }
 
 
-  // Utility
+  // Utility chart
   public pieChartOptions: ChartOptions = {
     responsive: true,
     legend: {
@@ -160,32 +177,61 @@ export class DashboardComponent implements OnInit {
     },
   ];
   buildPieChartData(data:Array<any>){
-    let Data = {};
+    let Utilitys = {};
+    let lastEnddate
     data.forEach((item)=>{
       let category = item[3];
       let amount   = parseFloat(item[4].replace('₹','').replace(/,/g,''));
+      // @ts-ignore
+      let totalDays = Math.ceil(Math.abs(new Date(item[0]) - new Date(item[1])) / (1000 * 60 * 60 * 24)); 
+       // @ts-ignore
+      let overlapDays = Math.ceil(Math.abs(new Date(item[0]) - new Date(lastEnddate)) / (1000 * 60 * 60 * 24));
 
-      if(Data[category]){
-        Data[category] = Data[category]+amount;
+      if(Utilitys[category]){
+        if(category == "Telephone" && overlapDays>0){
+          Utilitys[category]['totalDays'] = totalDays;
+          
+        }else{
+          Utilitys[category]['totalDays']+= totalDays;
+        }
+        Utilitys[category]['totalAmount']  += amount;
+        Utilitys[category]['amount']  = Math.round((Utilitys[category]['totalAmount']/Utilitys[category]['totalDays'])*30);
       }else{
-        Data[category] = amount;
+        Utilitys[category] = {totalDays:0,totalAmount:0,amount:0};
+        Utilitys[category]['totalDays']  = totalDays;
+        Utilitys[category]['totalAmount']    = amount;
+        Utilitys[category]['amount']  = Math.round((Utilitys[category]['totalAmount']/Utilitys[category]['totalDays'])*30);
+        
       }
 
       if(((new Date)<(new Date (item[1])))){
         this.buildBroadbandBar(item);
       }
+      if(category == "Telephone"){
+        lastEnddate = item[1];
+      }
     });
-    this.pieChartLabels = Object.keys(Data);
+    this.pieChartLabels = Object.keys(Utilitys);
      // @ts-ignore
-    this.pieChartData   = Object.values(Data);
+     this.pieChartLabels.forEach((item:any)=>{
+      this.pieChartData.push(Utilitys[item]['amount']);
+      this.spreadSheetDataObj['monthlyUtilityCost'] += Utilitys[item]['amount'];
+     });
+
     this.changeDetection.detectChanges();
   }
 
   expnadUtility(){
     //navigator.vibrate(100);
     this.expandUtility = !this.expandUtility;
-    this.buildElectricityChart(this.spreadSheetDataObj['electricityList']);
-    this.buildWaterChart(this.spreadSheetDataObj['waterList']);
+    if(this.expandUtility){
+      this.buildElectricityChart(this.spreadSheetDataObj['electricityList']);
+      this.buildWaterChart(this.spreadSheetDataObj['waterList']);
+    }
+  }
+
+  expnadTxn(){
+    this.showTxn = !this.showTxn;
   }
  
 
@@ -197,21 +243,34 @@ export class DashboardComponent implements OnInit {
   ];
   buildElectricityChart(data){
     this.electricityChartLabels   = [];
+    this.electricityPerMonthCost  = 0;
+    this.electricityPerMonthunits = 0;
     this.electricitybarChartData  = [
       { data: [], label: 'Amount' },
       { data: [], label: 'Unit' }
     ];
     let Data      = {};
     let totalAmt  = 0;
+    let totalDays = 0;
+    let totalUnit = 0;
+
     data.forEach((item)=>{
+
+      // @ts-ignore
+      totalDays+= Math.ceil(Math.abs(new Date(item[0]) - new Date(item[1])) / (1000 * 60 * 60 * 24)); 
       let amount   = parseFloat(item[4].replace('₹','').replace(/,/g,''));
-      totalAmt+= amount;
+      totalAmt  += amount;
+      totalUnit += parseInt(item[5]);
       let unit   = parseFloat(item[5].replace(/,/g,''));
       let date = (item[0].split('-')[2]+'/'+ this.month[parseInt(item[0].split('-')[1])]+' - '+item[1].split('-')[2]+'/'+ this.month[parseInt(item[1].split('-')[1])])||'error';
       this.electricityChartLabels.push(date);
       this.electricitybarChartData[0].data.push(amount);
       this.electricitybarChartData[1].data.push(unit);
     });
+
+    this.electricityPerMonthCost  = Math.round((totalAmt/totalDays)*30);
+    this.electricityPerMonthunits = Math.round((totalUnit/totalDays)*30);
+
     this.spreadSheetDataObj['electricityTotalAmount'] = totalAmt;
     this.changeDetection.detectChanges();
   }
@@ -231,15 +290,22 @@ export class DashboardComponent implements OnInit {
     ];
     let Data      = {};
     let totalAmt  = 0;
+    let totalDays = 0;
+    let totalUnit = 0;
     data.forEach((item)=>{
       let amount   = parseFloat(item[4].replace('₹','').replace(/,/g,''));
       totalAmt+= amount;
+      // @ts-ignore
+      totalDays+= Math.ceil(Math.abs(new Date(item[0]) - new Date(item[1])) / (1000 * 60 * 60 * 24)); 
+      totalUnit += parseInt(item[5]);
       let unit   = parseFloat(item[5].replace(/,/g,''));
       let date = (item[0].split('-')[2]+'/'+ this.month[parseInt(item[0].split('-')[1])]+' - '+item[1].split('-')[2]+'/'+ this.month[parseInt(item[1].split('-')[1])])||'error';
       this.waterChartLabels.push(date);
       this.waterbarChartData[0].data.push(amount);
       this.waterbarChartData[1].data.push(unit);
     });
+    this.waterPerMonthCost  = Math.round((totalAmt/totalDays)*30);
+    this.waterPerMonthunits = Math.round((totalUnit/totalDays)*30);
     this.spreadSheetDataObj['waterTotalAmount'] = totalAmt;
     this.changeDetection.detectChanges();
   }

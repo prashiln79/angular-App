@@ -12,15 +12,29 @@ import { AuthService } from 'src/app/auth/auth.service';
 export class HeaderComponent implements OnInit {
 
   @Input() title;
+  public profilePic: any = '';
  
   constructor(public auth: AuthService,private changeDetection: ChangeDetectorRef) {}
 
   ngOnInit() {
+    
     this.auth.login.subscribe((data)=>{
       this.changeDetection.detectChanges();
     });
   }
 
+
+  getMonth(type){
+    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    if(type == 'mm'){
+      return (new Date()).getDate();
+    }else{
+  
+      return months[new Date().getMonth()];
+    }
+    
+  }
  
 
   

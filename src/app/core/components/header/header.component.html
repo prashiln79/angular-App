@@ -6,20 +6,17 @@
     class="navbar-brand"
     routerLink="/">
     Expenses
-    <span class="page title" *ngIf="title">
-      - <span class="title-string">{{ title }}</span>
-    </span>
   </a>
   <div class="navBar">
+    <span class="page title">
+      <span class="title-string">{{getMonth('mm')}}</span>
+      <span class="title-string">{{getMonth('')}}</span>
+   </span>
     <button type="button" *ngIf="!this.auth.loggedIn" (click)="auth.signInWithGoogle()" class="btn btn-outline-light me-2">Login</button>
-    <div class="dropdown" *ngIf="this.auth.loggedIn">
-      <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="profile" data-bs-toggle="dropdown" aria-expanded="false">
-        <img [src]="this.auth.user.gJ" alt="mdo" width="32" height="32" class="rounded-circle">
-        
-      </a>
-      <ul class="dropdown-menu text-small" aria-labelledby="profile" >
-        <li><a class="dropdown-item" (click)="auth.signOut()">Sign out</a></li>
-      </ul>
+    <div  *ngIf="this.auth.loggedIn">
+    
+        <button type="button"  (click)="auth.signOut()" class="btn btn-outline-light me-2">Sign out</button>
+  
     </div>
   </div>
 </nav>

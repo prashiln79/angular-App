@@ -4,8 +4,19 @@
 
 
 .title{
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  color: white;
+  
+ 
   .title-string{
-    font-size: 0.8em;
+    background-color: #26617e;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0 2px;
+    opacity: 0.5;
   }
 }
 

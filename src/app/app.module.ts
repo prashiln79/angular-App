@@ -32,6 +32,8 @@ import { CanActivateApp } from './auth/route-guard.CanActivate';
 import { TokenInterceptorService } from './auth/token.interceptor';
 import {MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MatTooltipModule} from "@angular/material/tooltip";
 import { HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerModule} from '@angular/platform-browser';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {MatListModule} from '@angular/material/list';
 
 
 
@@ -74,6 +76,8 @@ let gapiClientConfig: NgGapiClientConfig = {
     }),
     BrowserAnimationsModule,
     MatTooltipModule,
+    MatBottomSheetModule,
+    MatListModule,
   ],
   providers: [
     CanActivateApp,

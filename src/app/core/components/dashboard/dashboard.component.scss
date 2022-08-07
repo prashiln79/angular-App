@@ -1,11 +1,11 @@
 .card-title{
-    margin: .5em 0;
-    font-size: 200%;
+    margin: 0.5em 0;
+    font-size: 230%;
     color: #119fd6;
 }
 
 .card-subtitle , .card-text{
-    text-align: initial;
+    text-align: center;
     font-size: .875rem;
     font-weight: 400;
     letter-spacing: .04em;
@@ -58,12 +58,21 @@
 
 .status-board{
     display: flex;
+    grid-auto-flow: inherit;
+    margin: 10px 0px;
+    /* margin-top: -10px; */
+    padding: 20px 0px 24px 0;
     flex-direction: row;
-    justify-content: flex-start;
-    margin: 10px 0;
-    margin-top: -10px;
-    padding: 14px 0 22px 0;
+    flex-wrap: wrap;
+    width: fit-content;
 
+    mat-card-header{
+        position: absolute;
+        top: -3px;
+        left: -28px;
+        font-size: 0.8em;
+        opacity: 0.5;
+    }
     mat-card{
         width: 57px;
         height: 56px;
@@ -83,9 +92,10 @@
     float: left;
     line-height: 150px;
     background: none;
-    margin: 0 20px 7px 20px;
+    margin: 0 15px 7px 20px;
     box-shadow: none;
     position: relative;
+    
 
     .label{     
         margin-top: -5.4px;
@@ -94,6 +104,7 @@
         font-size: smaller;
         color: gray;
         font-family: inherit;
+        height: inherit;
     }
 }
 
@@ -216,3 +227,63 @@
     }
 }
 
+.list-group{
+    a{
+        text-align: left;
+        margin-top: 20px;
+    }
+}
+
+.unit{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    right: 0;
+    background: #458fac;
+    height: 61px;
+    width: 38px;
+    padding: 5px;
+    font-size: 0.69em;
+    border-radius: 4px;
+    -webkit-clip-path: polygon(20% 0%, 0 0, 0 50%, 0 100%, 0 100%, 50% 67%, 100% 100%, 100% 80%, 100% 50%, 100% 0, 80% 0%, 46% 0);
+    clip-path: polygon(20% 0%, 0 0, 0 50%, 0 100%, 0 100%, 50% 67%, 100% 100%, 100% 80%, 100% 50%, 100% 0, 80% 0%, 46% 0);
+    color: white;
+    line-height: 13px;
+    letter-spacing: 1.1px;
+
+    b{
+        font-size: 0.9em;
+    display: block;
+    border-bottom: 1px solid;
+    margin-top: -3px;
+    }
+}
+
+.lastYearAmt{
+    color: #96bfd9;
+    position: relative;
+    top: -4px;
+    font-size: larger;
+    letter-spacing: 0.5px;
+}
+
+.listHeading{
+    display: flex;
+    justify-content: space-between;
+    width: 77px;
+    align-items: center;
+}
+
+.listAmt{
+    float: right;
+    font-size: large;
+    color: #65b9e3;
+}
+.list-desc{
+    width: 70%;
+    float: left;
+    font-size: large;
+    padding-left: 4px;
+    color: #ffa1b5;
+}

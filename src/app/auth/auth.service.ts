@@ -24,6 +24,7 @@ export class AuthService {
         if (this.user) {
             this.loggedIn = (this.user != null);
             this.token = this.user.authToken;
+            this.user = Object.entries(this.user);
         }
         gapiService.onLoad().subscribe(() => {
             console.log('enter');
@@ -34,6 +35,7 @@ export class AuthService {
         let token: string = localStorage.getItem(AuthService.SESSION_STORAGE_KEY);
         if (!token) {
             throw new Error("no token set , authentication required");
+            this.loggedIn = false;
         }
         return localStorage.getItem(AuthService.SESSION_STORAGE_KEY);
     }
@@ -57,13 +59,13 @@ export class AuthService {
     }
 
     private signInSuccessHandler(res: GoogleUser) {
-        if (res['Ts']['RT'] != 'Prashil') {
+        if (Object.entries(res.getBasicProfile())[2][1] != 'Prashil') {
             this.signOut();
             return;
         }
         localStorage.setItem(AuthService.SESSION_STORAGE_KEY, res.getAuthResponse().access_token);
         localStorage.setItem(AuthService.USER, JSON.stringify(res.getBasicProfile()));
-        this.user = res.getBasicProfile();
+        this.user = Object.entries(res.getBasicProfile());
         this.loggedIn = (this.user != null);
         this.login.next('sign-In');
         window.location.reload();
